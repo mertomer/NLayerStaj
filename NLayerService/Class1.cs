@@ -1,4 +1,4 @@
-﻿namespace NLayerStaj
+﻿namespace NLayerService
 {
     public class Class1
     {
