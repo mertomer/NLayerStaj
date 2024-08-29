@@ -1,11 +1,40 @@
+using NLayerCore.Interfaces;  // NLayerCore projesindeki Interfaces klasörü
+using NLayerInfrastructure.MessageBroker;  // NLayerInfrastructure projesindeki MessageBroker klasörü
+using NLayerService.Services;  // NLayerService projesindeki Services klasörü
+using NLayerRepository.Repositories;  // NLayerRepository projesindeki Repositories klasörü
+using NLayerRepository.DbContext;  // NLayerRepository projesindeki DbContext klasörü
+using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
+using StackExchange.Redis;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Redis Baðlantýsýný DI'a Ekleme
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+    ConnectionMultiplexer.Connect("localhost"));  // Redis için localhost kullanýlýyor
+
+// RedisDbContext'i DI'a ekleme
+builder.Services.AddScoped<RedisDbContext>();
+
+// RabbitMQ Baðlantýsýný DI'a Ekleme
+builder.Services.AddSingleton<IConnection>(sp =>
+{
+    var factory = new ConnectionFactory() { HostName = "localhost" };  // RabbitMQ için localhost kullanýlýyor
+    return factory.CreateConnection();
+});
+
+// Servisleri DI'a Ekleme
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();  // ICurrencyService için implementasyon
+builder.Services.AddScoped<IMessageBroker, RabbitMqBroker>();  // IMessageBroker için implementasyon
+builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();  // IExchangeRateService için implementasyon
+
+// ICurrencyRepository için implementasyonu DI'a ekleme
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 
 var app = builder.Build();
 

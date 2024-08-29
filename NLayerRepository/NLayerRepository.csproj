@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NLayerStaj\NLayerCore.csproj" />
+    <ProjectReference Include="..\NLayerInfrastructure\NLayerInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>

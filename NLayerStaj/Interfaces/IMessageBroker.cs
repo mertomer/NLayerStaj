@@ -8,7 +8,10 @@ namespace NLayerCore.Interfaces
 {
     public interface IMessageBroker
     {
-        Task<IEnumerable<T>> ReceiveAsync<T>();
-        void Publish<T>(T message, string queueName);
+        public interface IMessageBroker
+        {
+            Task<IEnumerable<T>> ReceiveAsync<T>();
+            void Publish<T>(T message, string queueName);  // Publish metodu burada tanımlı
+        }
     }
 }
