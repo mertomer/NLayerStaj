@@ -7,12 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NLayerStaj\NLayerCore.csproj" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DbContext\" />
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\NLayerStaj\NLayerCore.csproj" />
   </ItemGroup>
 
 </Project>
