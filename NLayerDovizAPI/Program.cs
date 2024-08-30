@@ -1,8 +1,8 @@
-using NLayerCore.Interfaces;  // NLayerCore projesindeki Interfaces klasörü
-using NLayerInfrastructure.MessageBroker;  // NLayerInfrastructure projesindeki MessageBroker klasörü
-using NLayerService.Services;  // NLayerService projesindeki Services klasörü
-using NLayerRepository.Repositories;  // NLayerRepository projesindeki Repositories klasörü
-using NLayerRepository.DbContext;  // NLayerRepository projesindeki DbContext klasörü
+using NLayerCore.Interfaces;  
+using NLayerInfrastructure.MessageBroker;  
+using NLayerService.Services;  
+using NLayerRepository.Repositories;  
+using NLayerRepository.DbContext;  
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using StackExchange.Redis;
@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 // Redis Baðlantýsýný DI'a Ekleme
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-    ConnectionMultiplexer.Connect("localhost"));  // Redis için localhost kullanýlýyor
+    ConnectionMultiplexer.Connect("localhost"));  // Redis için localhost kullanýlýyormuþ
 
 // RedisDbContext'i DI'a ekleme
 builder.Services.AddScoped<RedisDbContext>();
